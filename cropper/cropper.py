@@ -31,7 +31,7 @@ class Cropper:
             x,y,w,h = cv2.boundingRect(c)
             area = w * h
 
-            if (area > 15000 and area < 75000):
+            if (area > 10000 and area < 75000):
                 flag = False
                 for c_x,c_y in centers :
                     if((abs(c_x-cX) < 10) and (abs(c_y - cY) < 10)):
@@ -43,12 +43,12 @@ class Cropper:
                     cnts.append(c)
                     centers.append((cX,cY))
                     if(w > 2.5*h) :
-                        out = cut[y+100:y+100+h-10,x+10:x+w-10]
+                        out = cut[y+100:y+100+h,x+10:x+w+10]
                         cv2.imwrite('./res/model.jpg', out)
-                        out = cut[y+100:y+100+h-10,math.ceil(x-(w/2+w/4)):math.ceil(x-(w/2)) + 170]
+                        out = cut[y+100:y+100+h,math.ceil(x-(w/2+w/4)):math.ceil(x-(w/2)) + 180]
                         cv2.imwrite('./res/brand.jpg', out)
                     elif(y > 150) :
-                        out = cut[y+10:y+h-10,x+10:x+w-10]
+                        out = cut[y+10:y+h,x+10:x+w+10]
                         cv2.imwrite('./res/cropped-' + str(count) + '.jpg', out)
                         instructions.append((x,y,w,h,'./res/cropped-' + str(count) + '.jpg'))
                         count += 1

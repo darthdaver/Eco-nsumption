@@ -31,6 +31,11 @@ if (os.path.exists('./binary')) :
     os.mkdir('./binary')
 else :
 	os.mkdir('./binary')
+if (os.path.exists('./json')) :
+    shutil.rmtree('./json')
+    os.mkdir('./json')
+else :
+	os.mkdir('./json')
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
@@ -46,5 +51,3 @@ q.quantize(32)
 m.mask()
 assemblyInstructions = c.crop()
 b.build(assemblyInstructions)
-#print(assemblyInstructions)
-#t.translate(assemblyInstructions)

@@ -1,0 +1,1 @@
+{"type": "Washing Machine", "kg": "120", "centrifuge": "", "model": "FH6FSBDS2", "noise-wash": "528", "consumptions": "113", "noise-dry": "71", "water": "", "brand": "ark"}

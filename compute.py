@@ -6,6 +6,8 @@ from translator.translator import Translator
 import argparse
 import imutils
 import cv2
+import os
+import shutil
 
 count = 0
 
@@ -14,17 +16,28 @@ m = Maskerator()
 c = Cropper()
 t = Translator()
 
+if (os.path.exists('./temp')) :
+    shutil.rmtree('./temp')
+    os.mkdir('./temp')
+if (os.path.exists('./res')) :
+    shutil.rmtree('./res')
+    os.mkdir('./res')
+if (os.path.exists('./binary')) :
+    shutil.rmtree('./binary')
+    os.mkdir('./binary')
+
 # construct the argument parse and parse the arguments
-#ap = argparse.ArgumentParser()
-#ap.add_argument("-i", "--image", required=True, help="path to the input image")
-#args = vars(ap.parse_args())
+ap = argparse.ArgumentParser()
+ap.add_argument("-i", "--image", required=True, help="path to the input image")
+args = vars(ap.parse_args())
 
 # load the image and resize it to a smaller factor so that
 # the shapes can be approximated better
-#image = cv2.imread(args["image"])
-#cv2.imwrite('./temp/original.jpg',image)
+image = cv2.imread(args["image"])
+cv2.imwrite('./temp/original.jpg',image)
 
-q.quantize(16)
+q.quantize(32)
 m.mask()
 c.crop()
 t.translate()
+

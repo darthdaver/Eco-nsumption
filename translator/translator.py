@@ -26,18 +26,15 @@ class Translator:
 
         res = cv2.bitwise_and(img,img, mask=mask_inv)
         res[res == 0] = 255
-        gray = cv2.cvtColor(img,cv2.COLOR_RGBA2GRAY)
-        blur = cv2.medianBlur(gray, 3)
+        gray = cv2.cvtColor(res,cv2.COLOR_RGBA2GRAY)
+        if(file != 'cropped-name.jpg'):
+            gray = cv2.medianBlur(gray, 7)
         retval, threshold = cv2.threshold(gray, 80, 255, cv2.THRESH_BINARY)
-        #threshold = cv2.bitwise_not(threshold)
 
-        #res = cv2.cvtColor(res,cv2.COLOR_RGBA2GRAY)
-        #retval, threshold = cv2.threshold(img, 10, 0, cv2.THRESH_BINARY)
         cv2.imwrite('./binary/bin-' + file,threshold)
 
     def translate(self):
         print('translation...')
-        print()
         for file in os.listdir("./res"):
             self.toBinary(file);
             txt = image_to_string(Image.open("./binary/bin-" + file))

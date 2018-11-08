@@ -41,7 +41,7 @@ class Builder:
             elif (file == 'noise-dry.jpg') :
                 data['noise-dry'] = self.translate(file)
 
-        with open('data.txt', 'w') as outfile:
+        with open('./json/data.txt', 'w') as outfile:
             json.dump(data, outfile)
 
 

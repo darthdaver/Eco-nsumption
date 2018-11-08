@@ -19,12 +19,18 @@ t = Translator()
 if (os.path.exists('./temp')) :
     shutil.rmtree('./temp')
     os.mkdir('./temp')
+else :
+	os.mkdir('./temp')
 if (os.path.exists('./res')) :
     shutil.rmtree('./res')
     os.mkdir('./res')
+else :
+	os.mkdir('./res')
 if (os.path.exists('./binary')) :
     shutil.rmtree('./binary')
     os.mkdir('./binary')
+else :
+	os.mkdir('./binary')
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()

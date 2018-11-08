@@ -2,7 +2,7 @@
 from quantizator.quantizator import Quantizator
 from maskerator.maskerator import Maskerator
 from cropper.cropper import Cropper
-from translator.translator import Translator
+from builder.builder import Builder
 import argparse
 import imutils
 import cv2
@@ -14,7 +14,7 @@ count = 0
 q = Quantizator()
 m = Maskerator()
 c = Cropper()
-t = Translator()
+b = Builder()
 
 if (os.path.exists('./temp')) :
     shutil.rmtree('./temp')
@@ -44,6 +44,7 @@ cv2.imwrite('./temp/original.jpg',image)
 
 q.quantize(32)
 m.mask()
-c.crop()
-t.translate()
-
+assemblyInstructions = c.crop()
+b.build(assemblyInstructions)
+#print(assemblyInstructions)
+#t.translate(assemblyInstructions)

@@ -43,7 +43,7 @@ class Cropper:
                     cnts.append(c)
                     centers.append((cX,cY))
                     if(w > 2.5*h) :
-                        out = cut[y+100:y+100+h,x+10:x+w+10]
+                        out = cut[y+100:y+100+h,x-5:x+w]
                         cv2.imwrite('./res/model.jpg', out)
                         out = cut[y+100:y+100+h,math.ceil(x-(w/2+w/4)):math.ceil(x-(w/2)) + 180]
                         cv2.imwrite('./res/brand.jpg', out)

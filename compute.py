@@ -11,43 +11,27 @@ import shutil
 
 count = 0
 
-q = Quantizator()
-m = Maskerator()
-c = Cropper()
-b = Builder()
+class Compute:
+    def __init__(self):
+        pass
 
-if (os.path.exists('./temp')) :
-    shutil.rmtree('./temp')
-    os.mkdir('./temp')
-else :
-	os.mkdir('./temp')
-if (os.path.exists('./res')) :
-    shutil.rmtree('./res')
-    os.mkdir('./res')
-else :
-	os.mkdir('./res')
-if (os.path.exists('./binary')) :
-    shutil.rmtree('./binary')
-    os.mkdir('./binary')
-else :
-	os.mkdir('./binary')
-if (os.path.exists('./json')) :
-    shutil.rmtree('./json')
-    os.mkdir('./json')
-else :
-	os.mkdir('./json')
+    def compute(self):
+        q = Quantizator()
+        m = Maskerator()
+        c = Cropper()
+        b = Builder()
 
-# construct the argument parse and parse the arguments
-ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", required=True, help="path to the input image")
-args = vars(ap.parse_args())
+        # load the image and resize it to a smaller factor so that
+        # the shapes can be approximated better
+        image = cv2.imread('./temp/image.jpg')
+        # resize image
+        resized = cv2.resize(image, (960,1280), interpolation=cv2.INTER_AREA)
+        cv2.imwrite('./temp/original.jpg',resized)
 
-# load the image and resize it to a smaller factor so that
-# the shapes can be approximated better
-image = cv2.imread(args["image"])
-cv2.imwrite('./temp/original.jpg',image)
+        q.quantize(32)
+        m.mask()
+        assemblyInstructions = c.crop()
+        b.build(assemblyInstructions)
 
-q.quantize(32)
-m.mask()
-assemblyInstructions = c.crop()
-b.build(assemblyInstructions)
+        with open('./json/data.json', 'r') as f:
+            return f.read()
